@@ -103,7 +103,6 @@ class MoodScreenViewModel(application: Application): AndroidViewModel(applicatio
     fun resumos(inicio: LocalDate, fim: LocalDate): Map<String, List<Resumo>> {
         val resumos: MutableMap<String, List<Resumo>> = mutableMapOf()
         try {
-
             resumos["Mood"] = repository.resumoMood(inicio, fim)
             resumos["Sentimento"] = repository.resumoSentimento(inicio, fim)
             resumos["Influencia"] = repository.resumoInfluencia(inicio, fim)
@@ -115,10 +114,40 @@ class MoodScreenViewModel(application: Application): AndroidViewModel(applicatio
             return resumos
 
         } catch (e: Exception) {
-
             println(e)
             setErro("$e")
             return resumos
+        }
+    }
+
+    fun pResumos(inicio: LocalDate, fim: LocalDate): Map<String, List<Resumo>> {
+
+        val pResumos: MutableMap<String, List<Resumo>> = mutableMapOf()
+
+        try {
+            val resumos = resumos(inicio, fim)
+
+            for((tipo, resumo) in resumos) {
+                val total = resumo.sumOf { it.valor }
+
+                if (total > 0) {
+                    val listaPorcentagem = resumo.map { resumo ->
+                        val percentual = (resumo.valor.toDouble() / total) * 100
+                        Resumo(
+                            tipo = resumo.tipo,
+                            valor = percentual
+                        )
+                    }
+                    pResumos[tipo] = listaPorcentagem
+                }
+            }
+            println(pResumos)
+            return pResumos
+
+        } catch (e: Exception) {
+            println(e)
+            setErro("$e")
+            return pResumos;
         }
     }
 }

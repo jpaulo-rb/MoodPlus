@@ -21,5 +21,5 @@ data class Mood(
 
 data class Resumo(
     var tipo: String = "",
-    var valor: Int = 0
+    var valor: Double = 0.00
 )

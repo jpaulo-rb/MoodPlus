@@ -122,7 +122,7 @@ fun FormScreen(
                     moodScreenViewModel.setImpacto(respostasSelecionadas[4]?.firstOrNull() ?: "Vazio")
 
                     moodScreenViewModel.salvar()
-                    moodScreenViewModel.resumos(LocalDate.now(), LocalDate.now())
+                    moodScreenViewModel.pResumos(LocalDate.now().plusDays(-1), LocalDate.now())
                     println("Respostas: $respostasSelecionadas")
                 }
             },
