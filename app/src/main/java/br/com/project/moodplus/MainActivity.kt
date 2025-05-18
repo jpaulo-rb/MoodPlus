@@ -13,6 +13,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import br.com.project.moodplus.components.FormScreen
+import br.com.project.moodplus.components.HomeScreen
 import br.com.project.moodplus.components.IntroScreen
 import br.com.project.moodplus.components.MoodValidScreen
 import br.com.project.moodplus.ui.theme.MoodPlusTheme
@@ -47,6 +48,9 @@ class MainActivity : ComponentActivity() {
                                     navController = navController,
                                     moodScreenViewModel = moodScreenViewModel
                                     )
+                            }
+                            composable(route = "HomeScreen"){
+                                HomeScreen(navController)
                             }
                         }
                     }
