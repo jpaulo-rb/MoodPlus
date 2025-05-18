@@ -18,24 +18,34 @@ import androidx.compose.material3.Checkbox
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateMapOf
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import br.com.project.moodplus.R
 import br.com.project.moodplus.model.Pergunta
+import br.com.project.moodplus.viewmodel.MoodScreenViewModel
+import java.time.LocalDate
 
 @Composable
-fun FormScreen(navController: NavController) {
+fun FormScreen(
+    navController: NavController,
+    moodScreenViewModel: MoodScreenViewModel
+) {
+
     val perguntas = listOf(
         Pergunta("Como você está se sentindo hoje?", listOf("Motivado", "Cansado", "Preocupado", "Estressado", "Satisfeito", "Animado")),
         Pergunta("O que influenciou seu humor?", listOf("Trabalho", "Família", "Saúde", "Relacionamentos", "Estudos")),
@@ -44,11 +54,13 @@ fun FormScreen(navController: NavController) {
         Pergunta("Como você avalia o impacto do trabalho na sua vida pessoal?", listOf("Muito boa", "Boa", "Mais ou menos", "Ruim", "Muito ruim"))
     )
 
-    var perguntaAtual by remember { mutableStateOf(0) }
+    var perguntaAtual by remember { mutableIntStateOf(0) }
     val respostasSelecionadas = remember { mutableStateMapOf<Int, List<String>>() }
     val opcoesSelecionadas = remember { mutableStateMapOf<String, Boolean>() }
 
     val pergunta = perguntas[perguntaAtual]
+
+    val erro by moodScreenViewModel.erro.observeAsState(initial = "")
 
     Column(
         modifier = Modifier
@@ -102,6 +114,15 @@ fun FormScreen(navController: NavController) {
                     perguntaAtual++
                 } else {
                     // Finalizar
+                    moodScreenViewModel.setData(LocalDate.now().toString())
+                    moodScreenViewModel.setSentimento(respostasSelecionadas[0]?.firstOrNull() ?: "Vazio")
+                    moodScreenViewModel.setInfluencia(respostasSelecionadas[1]?.firstOrNull() ?: "Vazio")
+                    moodScreenViewModel.setSono(respostasSelecionadas[2]?.firstOrNull() ?: "Vazio")
+                    moodScreenViewModel.setLideranca(respostasSelecionadas[3]?.firstOrNull() ?: "Vazio")
+                    moodScreenViewModel.setImpacto(respostasSelecionadas[4]?.firstOrNull() ?: "Vazio")
+
+                    moodScreenViewModel.salvar()
+                    moodScreenViewModel.resumos(LocalDate.now(), LocalDate.now())
                     println("Respostas: $respostasSelecionadas")
                 }
             },
@@ -122,8 +143,9 @@ fun FormScreen(navController: NavController) {
     }
 }
 
-//@Preview(showBackground = true, showSystemUi = true)
-//@Composable
-//fun FormScreenPreview(){
-//    FormScreen(navController = NavController(LocalContext.current))
-//}
+@Preview(showBackground = true, showSystemUi = true)
+@Composable
+fun FormScreenPreview(){
+    val moodScreenViewModel: MoodScreenViewModel = viewModel()
+    FormScreen(navController = NavController(LocalContext.current), moodScreenViewModel)
+}

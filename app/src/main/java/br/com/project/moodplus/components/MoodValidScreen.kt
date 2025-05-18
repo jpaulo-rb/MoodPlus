@@ -23,12 +23,17 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import androidx.navigation.NavHostController
 import br.com.project.moodplus.R
+import br.com.project.moodplus.viewmodel.MoodScreenViewModel
 
 @Composable
-fun MoodValidScreen(navController: NavController){
+fun MoodValidScreen(
+    navController: NavController,
+    moodScreenViewModel: MoodScreenViewModel
+) {
+
     Box(modifier = Modifier.background(colorResource(id = R.color.lightBlue)).fillMaxSize()){
         Column(
             modifier = Modifier.fillMaxWidth().padding(top = 50.dp),
@@ -43,7 +48,7 @@ fun MoodValidScreen(navController: NavController){
 
             Text(
                 modifier = Modifier.size(327.dp, 78.dp),
-                text = "Nos conte como você esta hoje",
+                text = "Nos conte como você está hoje",
                 textAlign = TextAlign.Center,
                 color = colorResource(id = R.color.Dark),
                 fontSize = 32.sp,
@@ -57,21 +62,30 @@ fun MoodValidScreen(navController: NavController){
             ) {
                 Image(
                     modifier = Modifier.size(80.dp, 80.dp)
-                        .clickable { navController.navigate("FormScreen") },
+                        .clickable {
+                            moodScreenViewModel.setMood("Happy")
+                            navController.navigate("FormScreen")
+                        },
                     painter = painterResource(id = R.drawable.happy),
                     contentDescription = "Happy Face"
                 )
 
                 Image(
                     modifier = Modifier.size(75.dp, 75.dp)
-                        .clickable { navController.navigate("FormScreen") },
+                        .clickable {
+                            moodScreenViewModel.setMood("Neutral")
+                            navController.navigate("FormScreen")
+                        },
                     painter = painterResource(id = R.drawable.neutral),
                     contentDescription = "Neutral Face"
                 )
 
                 Image(
                     modifier = Modifier.size(80.dp, 80.dp)
-                        .clickable { navController.navigate("FormScreen") },
+                        .clickable {
+                            moodScreenViewModel.setMood("Sad")
+                            navController.navigate("FormScreen")
+                        },
                     painter = painterResource(id = R.drawable.sad),
                     contentDescription = "Sad Face"
                 )
@@ -83,8 +97,9 @@ fun MoodValidScreen(navController: NavController){
     }
 }
 
-//@Preview(showBackground = true, showSystemUi = true)
-//@Composable
-//fun MoodValidScreenPreview(){
-//    MoodValidScreen(NavHostController(LocalContext.current))
-//}
+@Preview(showBackground = true, showSystemUi = true)
+@Composable
+fun MoodValidScreenPreview(){
+    val moodScreenViewModel: MoodScreenViewModel = viewModel()
+    MoodValidScreen(navController = NavController(LocalContext.current), moodScreenViewModel)
+}
