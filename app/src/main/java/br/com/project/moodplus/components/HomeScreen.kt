@@ -33,7 +33,7 @@ import androidx.navigation.NavHostController
 fun HomeScreen(navController: NavController) {
     Box(modifier= Modifier.background(colorResource(id = R.color.lightBlue)).fillMaxSize()){
         Column(
-            modifier = Modifier
+                modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = 50.dp),
             horizontalAlignment = Alignment.CenterHorizontally,

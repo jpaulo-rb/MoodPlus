@@ -12,6 +12,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import br.com.project.moodplus.components.CalendarScreen
 import br.com.project.moodplus.components.FormScreen
 import br.com.project.moodplus.components.HomeScreen
 import br.com.project.moodplus.components.IntroScreen
@@ -51,6 +52,9 @@ class MainActivity : ComponentActivity() {
                             }
                             composable(route = "HomeScreen"){
                                 HomeScreen(navController)
+                            }
+                            composable(route = "CalendarScreen"){
+                                CalendarScreen(navController)
                             }
                         }
                     }
