@@ -23,10 +23,12 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-    import br.com.project.moodplus.R
+import androidx.navigation.NavHostController
+import br.com.project.moodplus.R
 
 
 @Composable
@@ -60,8 +62,8 @@ fun IntroScreen(navController: NavController) {
 }
 
 
-//@Preview(showBackground = true, showSystemUi = true)
-//@Composable
-//fun IntroScreenPreview(){
-//    IntroScreen(navController = NavHostController(LocalContext.current))
-//}
+@Preview(showBackground = true, showSystemUi = true)
+@Composable
+fun IntroScreenPreview(){
+   IntroScreen(navController = NavHostController(LocalContext.current))
+}
