@@ -2,6 +2,7 @@ package br.com.project.moodplus
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -17,12 +18,22 @@ import br.com.project.moodplus.components.FormScreen
 import br.com.project.moodplus.components.HomeScreen
 import br.com.project.moodplus.components.IntroScreen
 import br.com.project.moodplus.components.MoodValidScreen
+import br.com.project.moodplus.components.OrientacoesScreen
+import br.com.project.moodplus.mock.MockServer
 import br.com.project.moodplus.ui.theme.MoodPlusTheme
 import br.com.project.moodplus.viewmodel.MoodScreenViewModel
-
+import br.com.project.moodplus.viewmodel.OrientacoesScreenViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
-    @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+
+    private val mockScope = CoroutineScope(Dispatchers.IO + SupervisorJob())
+
+    @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter", "CoroutineCreationDuringComposition")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -33,27 +44,34 @@ class MainActivity : ComponentActivity() {
 
                         val navController = rememberNavController()
                         val moodScreenViewModel: MoodScreenViewModel = viewModel()
+                        val orientacoesScreenViewModel: OrientacoesScreenViewModel = viewModel()
 
-                        NavHost(navController = navController, startDestination = "intro"){
-                            composable(route = "intro"){
+                        NavHost(navController = navController, startDestination = "intro") {
+                            composable(route = "intro") {
                                 IntroScreen(navController)
                             }
-                            composable(route = "MoodValid"){
+                            composable(route = "MoodValid") {
                                 MoodValidScreen(
                                     navController = navController,
                                     moodScreenViewModel = moodScreenViewModel
                                 )
                             }
-                            composable(route = "FormScreen"){
+                            composable(route = "FormScreen") {
                                 FormScreen(
                                     navController = navController,
                                     moodScreenViewModel = moodScreenViewModel
-                                    )
+                                )
                             }
-                            composable(route = "HomeScreen"){
+                            composable(route = "OrientacoesScreen") {
+                                OrientacoesScreen(
+                                    navController = navController,
+                                    orientacoesScreenViewModel = orientacoesScreenViewModel
+                                )
+                            }
+                            composable(route = "HomeScreen") {
                                 HomeScreen(navController)
                             }
-                            composable(route = "CalendarScreen"){
+                            composable(route = "CalendarScreen") {
                                 CalendarScreen(navController)
                             }
                         }
@@ -61,7 +79,19 @@ class MainActivity : ComponentActivity() {
                 }
             }.onFailure {
                 it.printStackTrace()
+            }
+        }
+        mockScope.launch {
+            MockServer.start()
+            MockServer.listaEventos()
+
+            Log.d("MOCK_SERVER", "Mock server URL: ${MockServer.url()}")
         }
     }
-}
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mockScope.cancel()
+        MockServer.shutdown()
+    }
 }

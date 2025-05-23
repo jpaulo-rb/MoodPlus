@@ -13,6 +13,8 @@ class MoodScreenViewModel(application: Application): AndroidViewModel(applicatio
 
     private val repository = MoodRepository(application.applicationContext)
 
+    // Cada val representa a escolha do usuário. Mood = emoji e assim por diante.
+    // A data é a primary key, se não for informada nenhum irá ser passada a data atual.
     private val _data = MutableLiveData<String>();
     private val _mood = MutableLiveData<String>();
     private val _sentimento = MutableLiveData<String>();
@@ -64,7 +66,7 @@ class MoodScreenViewModel(application: Application): AndroidViewModel(applicatio
         _erro.value = value
     }
 
-    fun getMood(): Mood {
+    private fun getMood(): Mood {
         val mood = Mood()
         mood.data = this.data.value.toString()
         mood.mood = this.mood.value.toString()
@@ -110,7 +112,6 @@ class MoodScreenViewModel(application: Application): AndroidViewModel(applicatio
             resumos["Lideranca"] = repository.resumoLideranca(inicio, fim)
             resumos["Impacto"] = repository.resumoImpacto(inicio, fim)
 
-            println(resumos)
             return resumos
 
         } catch (e: Exception) {
@@ -141,7 +142,6 @@ class MoodScreenViewModel(application: Application): AndroidViewModel(applicatio
                     pResumos[tipo] = listaPorcentagem
                 }
             }
-            println(pResumos)
             return pResumos
 
         } catch (e: Exception) {

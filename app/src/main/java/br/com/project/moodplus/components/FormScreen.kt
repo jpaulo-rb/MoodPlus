@@ -122,8 +122,9 @@ fun FormScreen(
                     moodScreenViewModel.setImpacto(respostasSelecionadas[4]?.firstOrNull() ?: "Vazio")
 
                     moodScreenViewModel.salvar()
-                    moodScreenViewModel.pResumos(LocalDate.now().plusDays(-1), LocalDate.now())
-                    println("Respostas: $respostasSelecionadas")
+
+                    moodScreenViewModel.pResumos(LocalDate.now(), LocalDate.now())
+                    navController.navigate("HomeScreen")
                 }
             },
             colors = ButtonDefaults.buttonColors(colorResource(id = R.color.Yellow)),

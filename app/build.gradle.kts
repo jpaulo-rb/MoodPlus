@@ -64,4 +64,9 @@ dependencies {
     implementation (libs.androidx.runtime.livedata)
     implementation(libs.androidx.room.runtime)
     kapt(libs.androidx.room.compiler)
+
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+    implementation(libs.mockwebserver)
+
 }

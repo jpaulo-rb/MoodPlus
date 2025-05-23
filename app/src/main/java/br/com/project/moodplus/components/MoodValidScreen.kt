@@ -26,7 +26,9 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import br.com.project.moodplus.R
+import br.com.project.moodplus.service.buscarEventos
 import br.com.project.moodplus.viewmodel.MoodScreenViewModel
+import br.com.project.moodplus.viewmodel.OrientacoesScreenViewModel
 
 @Composable
 fun MoodValidScreen(
@@ -97,9 +99,9 @@ fun MoodValidScreen(
     }
 }
 
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-fun MoodValidScreenPreview(){
-    val moodScreenViewModel: MoodScreenViewModel = viewModel()
-    MoodValidScreen(navController = NavController(LocalContext.current), moodScreenViewModel)
-}
+//@Preview(showBackground = true, showSystemUi = true)
+//@Composable
+//fun MoodValidScreenPreview(){
+//    val moodScreenViewModel: MoodScreenViewModel = viewModel()
+//    MoodValidScreen(navController = NavController(LocalContext.current), moodScreenViewModel)
+//}
