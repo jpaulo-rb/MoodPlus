@@ -15,14 +15,14 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import br.com.project.moodplus.components.CalendarScreen
 import br.com.project.moodplus.components.FormScreen
+import br.com.project.moodplus.components.GuidenceScreen
 import br.com.project.moodplus.components.HomeScreen
 import br.com.project.moodplus.components.IntroScreen
 import br.com.project.moodplus.components.MoodValidScreen
-import br.com.project.moodplus.components.OrientacoesScreen
 import br.com.project.moodplus.mock.MockServer
 import br.com.project.moodplus.ui.theme.MoodPlusTheme
 import br.com.project.moodplus.viewmodel.MoodScreenViewModel
-import br.com.project.moodplus.viewmodel.OrientacoesScreenViewModel
+import br.com.project.moodplus.viewmodel.GuidenceScreenViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -44,13 +44,15 @@ class MainActivity : ComponentActivity() {
 
                         val navController = rememberNavController()
                         val moodScreenViewModel: MoodScreenViewModel = viewModel()
-                        val orientacoesScreenViewModel: OrientacoesScreenViewModel = viewModel()
+                        val guidenceScreenViewModel: GuidenceScreenViewModel = viewModel()
 
-                        NavHost(navController = navController, startDestination = "intro") {
-                            composable(route = "intro") {
-                                IntroScreen(navController)
+                        NavHost(navController = navController, startDestination = "IntroScreen") {
+                            composable(route = "IntroScreen") {
+                                IntroScreen(
+                                    navController = navController,
+                                    moodScreenViewModel = moodScreenViewModel)
                             }
-                            composable(route = "MoodValid") {
+                            composable(route = "MoodValidScreen") {
                                 MoodValidScreen(
                                     navController = navController,
                                     moodScreenViewModel = moodScreenViewModel
@@ -62,17 +64,23 @@ class MainActivity : ComponentActivity() {
                                     moodScreenViewModel = moodScreenViewModel
                                 )
                             }
-                            composable(route = "OrientacoesScreen") {
-                                OrientacoesScreen(
+                            composable(route = "GuidenceScreen") {
+                                GuidenceScreen(
                                     navController = navController,
-                                    orientacoesScreenViewModel = orientacoesScreenViewModel
+                                    guidenceScreenViewModel = guidenceScreenViewModel
                                 )
                             }
                             composable(route = "HomeScreen") {
-                                HomeScreen(navController)
+                                HomeScreen(
+                                    navController = navController,
+                                    moodScreenViewModel = moodScreenViewModel
+                                )
                             }
                             composable(route = "CalendarScreen") {
-                                CalendarScreen(navController)
+                                CalendarScreen(
+                                    navController = navController,
+                                    moodScreenViewModel = moodScreenViewModel
+                                )
                             }
                         }
                     }

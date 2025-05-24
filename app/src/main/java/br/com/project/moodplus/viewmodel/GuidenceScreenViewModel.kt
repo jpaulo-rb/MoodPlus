@@ -6,9 +6,15 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import br.com.project.moodplus.model.Evento
 
-open class OrientacoesScreenViewModel (application: Application): AndroidViewModel(application) {
+class GuidenceScreenViewModel (application: Application): AndroidViewModel(application) {
 
-    internal val _eventos = MutableLiveData<List<Evento>>()
+    private val _evento = MutableLiveData<Evento>();
+    val evento: LiveData<Evento> = _evento
+    fun setEvento(value: Evento) {
+        _evento.value = value
+    }
+
+    private val _eventos = MutableLiveData<List<Evento>>()
     private val _data = MutableLiveData<String>();
     private val _hora = MutableLiveData<String>();
     private val _nome = MutableLiveData<String>();

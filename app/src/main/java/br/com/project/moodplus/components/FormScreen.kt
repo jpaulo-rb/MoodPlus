@@ -15,12 +15,14 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Checkbox
+import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateMapOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -85,14 +87,13 @@ fun FormScreen(
         )
 
         // Checkboxes dinâmicas
+        var opcaoSelecionada by remember(perguntaAtual) { mutableStateOf("") }
+
         pergunta.opcoes.forEach { opcao ->
-            val checked = opcoesSelecionadas[opcao] ?: false
             Row(modifier = Modifier.fillMaxWidth().padding(start = 22.dp), verticalAlignment = Alignment.CenterVertically) {
-                Checkbox(
-                    checked = checked,
-                    onCheckedChange = {
-                        opcoesSelecionadas[opcao] = it
-                    }
+                RadioButton(
+                    selected = opcaoSelecionada == opcao,
+                    onClick = { opcaoSelecionada = opcao }
                 )
                 Text(opcao, color = colorResource(id = R.color.Dark), fontWeight = FontWeight.SemiBold)
             }
@@ -104,7 +105,7 @@ fun FormScreen(
             onClick = {
                 // Salvar respostas marcadas para a pergunta atual
                 val respostas = opcoesSelecionadas.filter { it.value }.map { it.key }
-                respostasSelecionadas[perguntaAtual] = respostas
+                respostasSelecionadas[perguntaAtual] = listOf(opcaoSelecionada)
 
                 // Limpar seleção atual
                 opcoesSelecionadas.clear()
@@ -122,8 +123,7 @@ fun FormScreen(
                     moodScreenViewModel.setImpacto(respostasSelecionadas[4]?.firstOrNull() ?: "Vazio")
 
                     moodScreenViewModel.salvar()
-
-                    moodScreenViewModel.pResumos(LocalDate.now(), LocalDate.now())
+                    println(respostasSelecionadas)
                     navController.navigate("HomeScreen")
                 }
             },

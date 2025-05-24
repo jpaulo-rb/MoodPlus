@@ -23,3 +23,10 @@ data class Resumo(
     var tipo: String = "",
     var valor: Double = 0.00
 )
+
+data class ResultadoResumo(
+    val descricao: String,  // a key do map, ex: "Mood"
+    val resultado: String,  // o tipo mais escolhido, ex: "Happy"
+    val nivel: String       // nível baseado no valor
+)
+

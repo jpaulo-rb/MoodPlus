@@ -21,16 +21,38 @@ object MockServer {
     fun listaEventos() {
         val eventos = listOf(
             Evento(
-                data = "2025-06-01",
-                hora = "19:00",
-                nome = "Bate-Papo",
-                descricao = "Evento para bate-papo livre, para conhecimento de seus companheiros"
+                data = "2025-06-03",
+                hora = "09:30",
+                nome = "Meditação Guiada",
+                descricao = "Sessão rápida de meditação para reduzir o estresse e aumentar o foco no trabalho"
             ),
+
             Evento(
-                data = "2025-06-05",
+                data = "2025-06-04",
+                hora = "16:00",
+                nome = "Oficina de Autocuidado",
+                descricao = "Atividade prática para refletir e aplicar técnicas simples de autocuidado no dia a dia"
+            ),
+
+            Evento(
+                data = "2025-06-06",
                 hora = "14:00",
-                nome = "Bate-Papo",
-                descricao = "Evento para bate-papo livre, para conhecimento de seus companheiros"
+                nome = "Escuta Ativa",
+                descricao = "Espaço reservado com profissionais para conversar e ser ouvido sem julgamentos"
+            ),
+
+            Evento(
+                data = "2025-06-08",
+                hora = "17:00",
+                nome = "Café com Propósito",
+                descricao = "Encontro descontraído para discutir temas importantes sobre propósito e equilíbrio"
+            ),
+
+            Evento(
+                data = "2025-06-10",
+                hora = "11:00",
+                nome = "Mind Talks",
+                descricao = "Palestras curtas sobre saúde mental"
             )
         )
 

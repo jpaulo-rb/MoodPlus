@@ -3,7 +3,7 @@ package br.com.project.moodplus.service
 import android.util.Log
 import br.com.project.moodplus.mock.MockServer
 import br.com.project.moodplus.model.Evento
-import br.com.project.moodplus.viewmodel.OrientacoesScreenViewModel
+import br.com.project.moodplus.viewmodel.GuidenceScreenViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -13,7 +13,7 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-fun buscarEventos (orientacoes: OrientacoesScreenViewModel) {
+fun buscarEventos (guidence: GuidenceScreenViewModel) {
 
     CoroutineScope(Dispatchers.IO).launch {
         val retrofit = Retrofit.Builder()
@@ -30,7 +30,7 @@ fun buscarEventos (orientacoes: OrientacoesScreenViewModel) {
                 if (response.isSuccessful) {
                     val eventos = response.body()
                     CoroutineScope(Dispatchers.Main).launch {
-                        orientacoes.setEventos(eventos ?: emptyList())
+                        guidence.setEventos(eventos ?: emptyList())
                     }
                     eventos?.forEach {
                         Log.i("MockAPI", "Evento: ${it.nome} em ${it.data} às ${it.hora}, descrição: ${it.descricao}")
