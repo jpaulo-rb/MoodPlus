@@ -1,6 +1,7 @@
-# App de Apoio à Saúde Mental e Psicossocial
+# MoodPlus - Apoio à Saúde Mental e Psicossocial
 
-Aplicativo mobile desenvolvido com base nas diretrizes da NR1, como proposta para o programa da Softtek. O projeto visa oferecer recursos de suporte à saúde mental no ambiente de trabalho.
+Aplicativo mobile desenvolvido com base nas diretrizes da NR1, como proposta para o programa da Softtek. 
+O projeto visa oferecer recursos de suporte à saúde mental no ambiente de trabalho.
 
 ---
 
