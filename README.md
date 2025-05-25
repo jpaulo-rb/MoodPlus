@@ -4,7 +4,7 @@ Aplicativo mobile desenvolvido com base nas diretrizes da NR1, como proposta par
 
 ---
 
-## 🧠 Funcionalidades
+## Funcionalidades
 
 - Avaliação de riscos psicossociais (ex: questionários, autoavaliação)
 - Acompanhamento emocional (diário de humor, check-in)
@@ -13,7 +13,7 @@ Aplicativo mobile desenvolvido com base nas diretrizes da NR1, como proposta par
 
 ---
 
-## 🧱 Arquitetura
+## Arquitetura
 
 O projeto segue o padrão **MVVM (Model-View-ViewModel)**, garantindo desacoplamento, testabilidade e separação de responsabilidades.
 
@@ -23,7 +23,7 @@ O projeto segue o padrão **MVVM (Model-View-ViewModel)**, garantindo desacoplam
 
 ---
 
-## 🔌 Tecnologias e Bibliotecas
+## Tecnologias e Bibliotecas
 
 - **Jetpack Compose** (UI declarativa)
 - **Navigation Compose** (roteamento)
