@@ -8,8 +8,7 @@ Aplicativo mobile desenvolvido com base nas diretrizes da NR1, como proposta par
 
 - Avaliação de riscos psicossociais (ex: questionários, autoavaliação)
 - Acompanhamento emocional (diário de humor, check-in)
-- Canal de escuta e orientações
-- Visualização de dados consolidados (gráficos e evolução)
+- Visualização de dados consolidados
 - Lembretes e apoio personalizado
 
 ---
@@ -32,19 +31,3 @@ O projeto segue o padrão **MVVM (Model-View-ViewModel)**, garantindo desacoplam
 - **Retrofit** + **Gson Converter** (consumo de APIs REST)
 - **MockWebServer** (testes com API simulada)
 - **LiveData** + **ViewModel** (ciclo de vida e reatividade)
-- **JUnit / Espresso** (testes unitários e instrumentados)
-
----
-
-## 💡 Observações
-
-- Toda comunicação com APIs é feita de forma assíncrona utilizando Retrofit.
-- Dados persistidos localmente via Room, com mapeamento automático usando annotations.
-- Interface 100% construída com Compose, sem uso de XML.
-- Projeto preparado para expansão e integração em contextos reais de saúde corporativa.
-
----
-
-## 👨‍💻 Autor
-
-João Paulo
